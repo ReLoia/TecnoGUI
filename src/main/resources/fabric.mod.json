@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "tecnogui",
+  "version": "${version}",
+  "name": "tecnogui",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/tecnogui/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "it.reloia.tecnogui.client.TecnoGUIClient"
+    ],
+    "main": [
+      "it.reloia.tecnogui.TecnoGUI"
+    ]
+  },
+  "mixins": [
+    "tecnogui.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

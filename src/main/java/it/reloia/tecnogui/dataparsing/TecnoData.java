@@ -1,6 +1,7 @@
 package it.reloia.tecnogui.dataparsing;
 
 import it.reloia.tecnogui.dataparsing.data.ScoreboardData;
+import net.minecraft.client.MinecraftClient;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,9 +11,7 @@ public class TecnoData {
 
     public ScoreboardData scoreboardData = null;
 
-    private TecnoData() {
-
-    }
+    private TecnoData() { }
 
     private List<String> sidebarLines = Collections.emptyList();
 
@@ -21,6 +20,18 @@ public class TecnoData {
     }
     private void fetchSidebarLines() {
         sidebarLines = Utils.getSidebarLines();
+    }
+
+    public boolean loadingBalance = false;
+    public String fullBalance = "";
+    private void loadBalance() {
+        MinecraftClient client = MinecraftClient.getInstance();
+
+        if (client == null || client.getNetworkHandler() == null)
+            return;
+
+        loadingBalance = true;
+        client.getNetworkHandler().sendCommand("balance");
     }
 
     public boolean inAServer = false;
@@ -46,6 +57,12 @@ public class TecnoData {
             checkIfInTecnoRoleplay();
             if (inAServer && isInTecnoRoleplay && sidebarLines.size() >= 14)
                 scoreboardData = ScoreboardData.fromLines(sidebarLines);
+        }
+
+        if (t % 200 == 0) {
+            if (inAServer && isInTecnoRoleplay) {
+                loadBalance();
+            }
         }
 
         if (t > 1000)

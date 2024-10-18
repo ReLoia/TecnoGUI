@@ -24,8 +24,7 @@ public class TecnoGUIClient implements ClientModInitializer {
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (TecnoData.INSTANCE.inAServer)
-                TecnoData.INSTANCE.tick();
+            TecnoData.INSTANCE.tick();
         });
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {

@@ -45,9 +45,9 @@ public class HUDOverlay implements HudRenderCallback {
 
         drawContext.getMatrices().push();
         drawContext.getMatrices().scale(0.9F, 0.9F, 0.9F);
-        drawContext.drawText(textRenderer, scoreboardData.balance(), toScale(leftPadding), textY, 0xFFFFFF, false);
-        drawContext.drawText(textRenderer, scoreboardData.job(), toScale(leftPadding + quarter), textY, 0xFFFFFF, false);
-        drawContext.drawText(textRenderer, scoreboardData.clubCoins(), toScale(leftPadding + quarter * 3), textY, 0xFFFFFF, false);
+        drawContext.drawText(textRenderer, "ᮐ " + TecnoData.INSTANCE.fullBalance, toScale(leftPadding), textY, 0xFCAF31, false);
+        drawContext.drawText(textRenderer, scoreboardData.clubCoins(), toScale(leftPadding + quarter), textY, 0xFFFFFF, false);
+        drawContext.drawText(textRenderer, scoreboardData.job(), toScale(leftPadding + quarter * 3), textY, 0xFFFFFF, false);
         drawContext.drawText(textRenderer, scoreboardData.coordinates(), toScale(leftPadding + quarter * 4), textY, 0xFFFFFF, false);
 
         drawContext.getMatrices().pop();

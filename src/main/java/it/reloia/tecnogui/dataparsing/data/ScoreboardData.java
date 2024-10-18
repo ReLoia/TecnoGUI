@@ -23,17 +23,13 @@ import static it.reloia.tecnogui.dataparsing.Utils.extendBalance;
 public record ScoreboardData(
         String coordinates,
         String clubCoins,
-        String balance,
         String job
 ) {
     public static ScoreboardData fromLines(List<String> lines) {
-        String balance = lines.get(6).trim().replace(" (Standard)", "");
-        balance = balance.substring(0, balance.length() - 4);
         return new ScoreboardData(
-                lines.get(2),
-                lines.get(5),
-                "\uF801\uF802ᮐ " + extendBalance(balance),
-                lines.get(9)
+                "ઑ " + lines.get(2).trim(),
+                lines.get(5).trim(),
+                "ᮒ " + lines.get(9).trim()
         );
     }
 }

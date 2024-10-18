@@ -30,19 +30,19 @@ public abstract class MixinInGameHud {
 
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$toggleScoreboardOnRenderScoreboardSidebar(CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isInTecno)
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
             ci.cancel();
     }
 
     @Inject(method = "renderHealthBar", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$toggleHealthBarOnRenderHealthBar(CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isInTecno)
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
             ci.cancel();
     }
 
     @Inject(method = "renderStatusBars", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$toggleStatusBarsOnRenderStatusBars(CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isInTecno)
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
             ci.cancel();
     }
 
@@ -50,30 +50,32 @@ public abstract class MixinInGameHud {
 
     @Inject(method = "renderExperienceBar", at = @At("HEAD"))
     protected void tecnogui$moveExperienceBarOnExperienceBar(DrawContext context, int x, CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isInTecno) {
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
             context.getMatrices().push();
-            context.getMatrices().translate(0.0F, -14.0F, -90.0F);
+            // 14.0F
+            context.getMatrices().translate(0.0F, -4.0F, 0.0F);
         }
     }
 
     @Inject(method = "renderExperienceBar", at = @At("TAIL"))
     protected void tecnogui$restoreExperienceBarOnExperienceBar(DrawContext context, int x, CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isInTecno) {
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
             context.getMatrices().pop();
         }
     }
 
     @Inject(method = "renderHotbar", at = @At("HEAD"))
     protected void tecnogui$moveHotbarOnRenderHotbar(float tickDelta, DrawContext context, CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isInTecno) {
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
             context.getMatrices().push();
-            context.getMatrices().translate(0.0F, -14.0F, -90.0F);
+            // 14.0F
+            context.getMatrices().translate(0.0F, -4.0F, 0.0F);
         }
     }
 
     @Inject(method = "renderHotbar", at = @At("TAIL"))
     protected void tecnogui$restoreHotbarPositionOnRenderHotbar(float tickDelta, DrawContext context, CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isInTecno) {
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
             context.getMatrices().pop();
         }
     }

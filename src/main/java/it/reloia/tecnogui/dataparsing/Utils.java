@@ -10,6 +10,7 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.text.Text;
 import org.apache.commons.compress.utils.Lists;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,13 +22,13 @@ public class Utils {
      * <a href="https://gist.github.com/aaron1998ish/33c4e1836bd5cf79501d163a1b5c8304">...</a>
      * +
      * I LOVE Apec
-     *
+     * <p>
      * Fetching lines are based on how they're visually seen on your sidebar
      * and not based on the actual value score.
-     *
+     * <p>
      * Written around Minecraft 1.8 Scoreboards, modify to work with your
      * current version of Minecraft.
-     *
+     * <p>
      * <3 aaron1998ish
      *
      * @return a list of lines for a given scoreboard or empty
@@ -67,6 +68,33 @@ public class Utils {
         }
 
         return lines;
+    }
+
+    private static String addBalanceCommas(String input) {
+        System.out.println("Parsing: " + input);
+
+        Float value = Float.parseFloat(input);
+
+        DecimalFormat formatter = new DecimalFormat("#,###.##");
+
+        return formatter.format(value);
+    }
+
+    private static String addBalanceCommas(Float input) {
+        DecimalFormat formatter = new DecimalFormat("#,###.##");
+
+        return formatter.format(input);
+    }
+
+    public static String extendBalance(String balance) {
+        String cleanedInput = balance.replace("€", "").trim();
+
+        if (cleanedInput.endsWith("k")) {
+            cleanedInput = cleanedInput.replace("k", "");
+            return addBalanceCommas(Float.parseFloat(cleanedInput) * 1000);
+        }
+
+        return addBalanceCommas(cleanedInput);
     }
 }
 

@@ -15,7 +15,11 @@ A QOL mod for [Tecnocraft Roleplay](https://www.tecnocraft.net/).
  - or
  - **Inventory Buttons** - Add buttons to the inventory that allows the player to execute commands. | like NEU's ones.
 
+## Screenshots
+![image](https://github.com/user-attachments/assets/7ff6442b-8e5c-4815-9997-bef15a69fc38)
+
+
 ## Credits
 
  - [BananaFructa's Apec](https://github.com/BananaFructa/Apec) - For the idea inspiration.
- - [aaron1998ish](httos://github.com/aaron1998ish) - For the `getSidebarLines` method.
+ - [aaron1998ish](https://github.com/aaron1998ish) - For the `getSidebarLines` method.

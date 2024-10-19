@@ -20,7 +20,7 @@ public class TecnoData {
     }
 
     public boolean loadingBalance = false;
-    public String fullBalance = "";
+    public String fullBalance = "Loading...";
     private void loadBalance() {
         MinecraftClient client = MinecraftClient.getInstance();
 

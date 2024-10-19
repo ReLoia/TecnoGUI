@@ -11,11 +11,12 @@ import net.minecraft.text.Text;
 import org.apache.commons.compress.utils.Lists;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class Utils {
+
+    // TODO: make a character map following
+    Map<Character, Integer> characterWidthMap = new HashMap<>();
 
     /**
      * I LOVE aaron1998ish
@@ -70,9 +71,17 @@ public class Utils {
         return lines;
     }
 
-    private static String addBalanceCommas(String input) {
-        System.out.println("Parsing: " + input);
+    public static int calculateTextWidth(String text) {
+        int size = 0;
 
+        for (char c : text.toCharArray()) {
+//            size +=
+        }
+
+        return size;
+    }
+
+    private static String addBalanceCommas(String input) {
         Float value = Float.parseFloat(input);
 
         DecimalFormat formatter = new DecimalFormat("#,###.##");

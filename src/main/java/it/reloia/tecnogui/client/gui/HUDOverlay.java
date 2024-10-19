@@ -1,4 +1,4 @@
-package it.reloia.tecnogui.client;
+package it.reloia.tecnogui.client.gui;
 
 import it.reloia.tecnogui.dataparsing.TecnoData;
 import it.reloia.tecnogui.dataparsing.data.ScoreboardData;
@@ -8,11 +8,14 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
 public class HUDOverlay implements HudRenderCallback {
+    float scale = 0.8F;
+    float scaleRatio = 1 / scale;
+
     private int toScale(int x) {
-        return (int) (x * 1.11);
+        return (int) (x * scaleRatio);
     }
     private int toScale(double x) {
-        return (int) (x * 1.11);
+        return (int) (x * scaleRatio);
     }
 
     @Override
@@ -30,6 +33,7 @@ public class HUDOverlay implements HudRenderCallback {
         int height = 15;
         int y = client.getWindow().getScaledHeight() - 15;
         int width = client.getWindow().getScaledWidth();
+        System.out.println("x: " + x + ", y: " + y + ", width: " + width + ", height: " + height);
 
         ScoreboardData scoreboardData = TecnoData.INSTANCE.scoreboardData;
         if (scoreboardData == null)
@@ -37,18 +41,18 @@ public class HUDOverlay implements HudRenderCallback {
 
         drawContext.fill(x, y, width, y + height, 0x80000000);
 
-        TextRenderer textRenderer = client.textRenderer;
+//        TextRenderer textRenderer = client.textRenderer;
 
-        int textY = toScale(y + 5);
+        int textY = toScale(y + 5.5 * scale);
         int quarter = width / 5;
         int leftPadding = quarter / 3;
 
         drawContext.getMatrices().push();
-        drawContext.getMatrices().scale(0.9F, 0.9F, 0.9F);
-        drawContext.drawText(textRenderer, "ᮐ " + TecnoData.INSTANCE.fullBalance, toScale(leftPadding), textY, 0xFCAF31, false);
-        drawContext.drawText(textRenderer, scoreboardData.clubCoins(), toScale(leftPadding + quarter), textY, 0xFFFFFF, false);
-        drawContext.drawText(textRenderer, scoreboardData.job(), toScale(leftPadding + quarter * 3), textY, 0xFFFFFF, false);
-        drawContext.drawText(textRenderer, scoreboardData.coordinates(), toScale(leftPadding + quarter * 4), textY, 0xFFFFFF, false);
+        drawContext.getMatrices().scale(scale, scale, scale);
+        drawContext.drawText(client.textRenderer, "ᮐ " + TecnoData.INSTANCE.fullBalance, toScale(4), textY, 0xFCAF31, false);
+        drawContext.drawText(client.textRenderer, scoreboardData.clubCoins(), toScale(100), textY, 0x11a8ad, false);
+        drawContext.drawText(client.textRenderer, scoreboardData.job(), toScale(width - 85), textY, 0xFFFFFF, false);
+        drawContext.drawText(client.textRenderer, scoreboardData.coordinates(), toScale(width - 40), textY, 0xFFFFFF, false);
 
         drawContext.getMatrices().pop();
         drawContext.getMatrices().pop();

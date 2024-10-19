@@ -15,9 +15,6 @@ public class TecnoData {
 
     private List<String> sidebarLines = Collections.emptyList();
 
-    private List<String> getSidebarLines() {
-        return sidebarLines;
-    }
     private void fetchSidebarLines() {
         sidebarLines = Utils.getSidebarLines();
     }
@@ -40,7 +37,7 @@ public class TecnoData {
     public boolean isHUDEnabled = true;
 
     private void checkIfInTecnoRoleplay() {
-        if (!sidebarLines.isEmpty() && sidebarLines.get(3) != null) {
+        if (sidebarLines.size() >= 3) {
             isInTecnoRoleplay = sidebarLines.get(3).contains("ᴄᴏᴏʀᴅɪɴᴀᴛᴇ");
         } else {
             isInTecnoRoleplay = false;

@@ -14,6 +14,11 @@ public class ChatPacketMixin {
     private void onGameMessageMixin(GameMessageS2CPacket packet, CallbackInfo ci) {
         String message = packet.content().getString();
 
+        if (message.contains("Non puoi inviare") && TecnoData.INSTANCE.loadingBalance) {
+            ci.cancel();
+            TecnoData.INSTANCE.loadingBalance = false;
+        }
+
         if (message.contains("Bilancio conto")) {
             if (TecnoData.INSTANCE.loadingBalance)
                 ci.cancel();

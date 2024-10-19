@@ -14,9 +14,7 @@ public class TecnoGUIClient implements ClientModInitializer {
     public void onInitializeClient() {
         HudRenderCallback.EVENT.register(new HUDOverlay());
 
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            TecnoData.INSTANCE.inAServer = true;
-        });
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> TecnoData.INSTANCE.inAServer = true);
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             TecnoData.INSTANCE.inAServer = false;
@@ -24,11 +22,10 @@ public class TecnoGUIClient implements ClientModInitializer {
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            TecnoData.INSTANCE.tick();
+            if (TecnoData.INSTANCE.inAServer)
+                TecnoData.INSTANCE.tick();
         });
 
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-            ToggleHUDCommand.register(dispatcher);
-        });
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> ToggleHUDCommand.register(dispatcher));
     }
 }

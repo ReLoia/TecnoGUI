@@ -1,7 +1,6 @@
 package it.reloia.tecnogui.dataparsing;
 
 import com.google.common.collect.Iterables;
-import it.reloia.tecnogui.client.TecnoGUIClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.ScoreboardObjective;
@@ -14,10 +13,6 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 public class Utils {
-
-    // TODO: make a character map following
-    Map<Character, Integer> characterWidthMap = new HashMap<>();
-
     /**
      * I LOVE aaron1998ish
      * <a href="https://gist.github.com/aaron1998ish/33c4e1836bd5cf79501d163a1b5c8304">...</a>
@@ -71,14 +66,22 @@ public class Utils {
         return lines;
     }
 
-    public static int calculateTextWidth(String text) {
-        int size = 0;
+    public static float parseHydrationBar(String input) {
+        float value = 0;
 
-        for (char c : text.toCharArray()) {
-//            size +=
+        for (char c : input.toCharArray()) {
+            switch (c) {
+                case '\uE122':
+                case '\uE123':
+                    value += 0.5F;
+                    break;
+                case '\uE120':
+                    value += 1;
+                    break;
+            }
         }
 
-        return size;
+        return value;
     }
 
     private static String addBalanceCommas(String input) {

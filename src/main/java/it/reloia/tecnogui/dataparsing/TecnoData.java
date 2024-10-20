@@ -1,6 +1,6 @@
 package it.reloia.tecnogui.dataparsing;
 
-import it.reloia.tecnogui.dataparsing.data.ScoreboardData;
+import it.reloia.tecnogui.dataparsing.data.SidebarData;
 import net.minecraft.client.MinecraftClient;
 
 import java.util.Collections;
@@ -9,7 +9,8 @@ import java.util.List;
 public class TecnoData {
     public static final TecnoData INSTANCE = new TecnoData();
 
-    public ScoreboardData scoreboardData = null;
+    public SidebarData sidebarData = null;
+    public float hydration = 0;
 
     private TecnoData() { }
 
@@ -33,7 +34,6 @@ public class TecnoData {
 
     public boolean inAServer = false;
     public boolean isInTecnoRoleplay = false;
-
     public boolean isHUDEnabled = true;
 
     private void checkIfInTecnoRoleplay() {
@@ -53,7 +53,7 @@ public class TecnoData {
             fetchSidebarLines();
             checkIfInTecnoRoleplay();
             if (inAServer && isInTecnoRoleplay && sidebarLines.size() >= 14)
-                scoreboardData = ScoreboardData.fromLines(sidebarLines);
+                sidebarData = SidebarData.fromLines(sidebarLines);
         }
 
         if (t % 200 == 0) {

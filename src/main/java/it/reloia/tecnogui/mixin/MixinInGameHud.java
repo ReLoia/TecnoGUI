@@ -1,17 +1,15 @@
 package it.reloia.tecnogui.mixin;
 
 import it.reloia.tecnogui.dataparsing.TecnoData;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static it.reloia.tecnogui.dataparsing.Utils.parseHydrationBar;
 
 @Mixin(InGameHud.class)
 public abstract class MixinInGameHud {
@@ -67,9 +65,19 @@ public abstract class MixinInGameHud {
 
     @Inject(method = "setOverlayMessage", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$cancelSetOverlayMessage(Text message, boolean tinted, CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
-            if (message.toString().contains("Sei entrato nel lotto di"))
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
+            String msg = message.getString();
+            if (msg.contains("Sei entrato nel lotto di"))
                 ci.cancel();
+            else if (msg.length() > 15 && "\uE121\uE122\uE123\uE124\uE125".indexOf(msg.charAt(15)) != -1) {
+                TecnoData.INSTANCE.hydration = parseHydrationBar(msg);
+                ci.cancel();
+            }
+            else {
+                System.out.println(msg);
+            }
+        }
+
     }
 
 }

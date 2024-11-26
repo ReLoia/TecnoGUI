@@ -2,6 +2,7 @@ package it.reloia.tecnogui.client;
 
 import it.reloia.tecnogui.client.commands.ToggleHUDCommand;
 import it.reloia.tecnogui.client.gui.HUDOverlay;
+import it.reloia.tecnogui.client.keybindings.GUIKeyBinding;
 import it.reloia.tecnogui.dataparsing.TecnoData;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -26,6 +27,8 @@ public class TecnoGUIClient implements ClientModInitializer {
             if (TecnoData.INSTANCE.inAServer)
                 TecnoData.INSTANCE.tick();
         });
+
+        GUIKeyBinding.register();
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> ToggleHUDCommand.register(dispatcher));
     }

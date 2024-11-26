@@ -30,7 +30,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     private void onInit(CallbackInfo ci) {
         this.customButton = new ImageButton(
                 this.x - 20,
-                this.y + 10,
+                this.y + 2,
                 20, 20,
                 new Identifier("tecnogui", "textures/gui/garage.png"),
                 (button) -> {

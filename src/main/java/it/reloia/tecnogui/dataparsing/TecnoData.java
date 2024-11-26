@@ -2,6 +2,8 @@ package it.reloia.tecnogui.dataparsing;
 
 import it.reloia.tecnogui.dataparsing.data.SidebarData;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.ItemStack;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +34,25 @@ public class TecnoData {
         client.getNetworkHandler().sendCommand("balance");
     }
 
+    public String healthStatus = "Loading...";
+    private void loadHealth() {
+        MinecraftClient client = MinecraftClient.getInstance();
+
+        if (client == null || client.player == null)
+            return;
+
+        if (client.player.currentScreenHandler == null || client.player.currentScreenHandler.slots.size() < 4)
+            return;
+
+        ItemStack healthStack = client.player.currentScreenHandler.slots.get(3).getStack();
+
+        if (healthStack.isEmpty())
+            healthStatus = "Loading...";
+        else if (healthStack.getTooltip(client.player, TooltipContext.BASIC).size() > 1)
+            healthStatus = healthStack.getTooltip(client.player, TooltipContext.BASIC).get(1).getString();
+        else System.out.println("Error while parsing health status. + " + healthStack.getTooltip(client.player, TooltipContext.BASIC));
+    }
+
     public boolean inAServer = false;
     public boolean isInTecnoRoleplay = false;
     public boolean isHUDEnabled = true;
@@ -59,6 +80,7 @@ public class TecnoData {
         if (t % 200 == 0) {
             if (inAServer && isInTecnoRoleplay) {
                 loadBalance();
+                loadHealth();
             }
         }
 

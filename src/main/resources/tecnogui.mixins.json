@@ -8,7 +8,8 @@
   "client": [
     "ChatPacketMixin",
     "InventoryScreenMixin",
-    "MixinInGameHud"
+    "MixinInGameHud",
+    "BossBarHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

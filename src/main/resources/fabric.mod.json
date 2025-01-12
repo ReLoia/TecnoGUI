@@ -2,10 +2,14 @@
   "schemaVersion": 1,
   "id": "tecnogui",
   "version": "${version}",
-  "name": "tecnogui",
-  "description": "",
-  "authors": [],
-  "contact": {},
+  "name": "TecnoGUI",
+  "description": "A QOL mod for TecnoCraft!",
+  "authors": ["reloia"],
+  "contact": {
+    "email": "lrenato67ba@gmail.com",
+    "homepage": "https://reloia.ddns.net/",
+    "sources": "https://github.com/ReLoia/TecnoGUI"
+  },
   "license": "All-Rights-Reserved",
   "icon": "assets/tecnogui/icon.png",
   "environment": "client",
@@ -15,6 +19,9 @@
     ],
     "main": [
       "it.reloia.tecnogui.TecnoGUI"
+    ],
+    "modmenu": [
+      "it.reloia.tecnogui.config.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -23,6 +30,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "yet_another_config_lib_v3": ">=3.6.1+1.20.1-fabric"
   }
 }

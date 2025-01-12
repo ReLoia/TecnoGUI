@@ -12,12 +12,17 @@ base {
 
 
 repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
     mavenCentral()
+
+    maven {
+        name = 'Xander Maven'
+        url = 'https://maven.isxander.dev/releases'
+    }
+    
+    maven {
+        name = "Terraformers"
+        url = "https://maven.terraformersmc.com/"
+    }
 }
 
 dependencies {
@@ -27,6 +32,12 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // YACL - config library
+    modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+    // ModMenu - to appear in the mod menu
+    modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+    
     // TODO: remove
     modImplementation "com.ptsmods:devlogin:3.5"
 }

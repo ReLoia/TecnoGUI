@@ -23,7 +23,7 @@ public class InfoBar {
         drawContext.getMatrices().push();
         drawContext.getMatrices().translate(0.0F, 0.0F, -280.0F);
 
-        SidebarData sidebarData = TecnoData.INSTANCE.sidebarData;
+        SidebarData sidebarData = TecnoData.INSTANCE.getSidebarData();
         if (sidebarData == null)
             return;
 

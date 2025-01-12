@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
 public class TecnoGUIClient implements ClientModInitializer {
+    private int previousSelectedSlot = -1;
 
     @Override
     public void onInitializeClient() {
@@ -26,6 +27,17 @@ public class TecnoGUIClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (TecnoData.INSTANCE.inAServer)
                 TecnoData.INSTANCE.tick();
+            
+            if (client.player != null && client.player.getInventory() != null) {
+                if (previousSelectedSlot != client.player.getInventory().selectedSlot) {
+                    int currentSlot = client.player.getInventory().selectedSlot;
+                    
+                    if (currentSlot != previousSelectedSlot) {
+                        previousSelectedSlot = currentSlot;
+                        TecnoData.INSTANCE.loadHeldStatus(currentSlot);
+                    }
+                }
+            }
         });
 
         GUIKeyBinding.register();

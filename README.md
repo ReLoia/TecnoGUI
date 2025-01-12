@@ -22,7 +22,7 @@ A QOL mod for [Tecnocraft Roleplay](https://www.tecnocraft.net/).
    
 
 ## Screenshots
-![image](https://github.com/user-attachments/assets/7ff6442b-8e5c-4815-9997-bef15a69fc38)
+![2025-01-12_19 30 01](https://github.com/user-attachments/assets/79217475-50be-47a4-a386-126ffb4683c0)
 
 
 ## Credits

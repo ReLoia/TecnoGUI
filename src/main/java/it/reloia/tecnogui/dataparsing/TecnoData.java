@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Collections;
 import java.util.List;
 
-import static it.reloia.tecnogui.dataparsing.FoodSaturationCalculator.calculateSaturation;
+import static it.reloia.tecnogui.dataparsing.food.FoodSaturationCalculator.calculateSaturation;
 
 /**
  * Singleton class that holds all the data parsed from the game.

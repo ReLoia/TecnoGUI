@@ -1,5 +1,6 @@
-package it.reloia.tecnogui.dataparsing;
+package it.reloia.tecnogui.dataparsing.food;
 
+import it.reloia.tecnogui.dataparsing.strings.Transliterator;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;

@@ -12,14 +12,19 @@ public class Config {
     private static final File CONFIG_FILE = new File("config/tecnogui.json");
     
     private boolean hideBossBarName = false;
-
     public boolean isHideVoteAds() {
         return hideBossBarName;
     }
-
     public void setHideVoteAds(boolean hideBossBarName) {
         this.hideBossBarName = hideBossBarName;
     }
+    
+    // TODO: add toggle for custom bars, 
+    //  saturation in custom bars, 
+    //  hidden scoreboard, 
+    //  entered plot hider, 
+    //  inventory buttons,
+    //  expired food highlight
 
     public void save() {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {

@@ -1,4 +1,4 @@
-package it.reloia.tecnogui.dataparsing;
+package it.reloia.tecnogui.dataparsing.strings;
 
 import java.text.Normalizer;
 import java.util.HashMap;

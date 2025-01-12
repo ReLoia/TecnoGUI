@@ -16,7 +16,7 @@ import static it.reloia.tecnogui.dataparsing.Utils.parseHydrationBar;
 
 /**
  * Features of this mixin:<br><br>
- *
+ * <p>
  * - Expired Food Highlight<br>
  * - Move Hotbar a little bit up<br>
  * - Hide Scoreboard Sidebar<br>
@@ -30,7 +30,7 @@ import static it.reloia.tecnogui.dataparsing.Utils.parseHydrationBar;
 public abstract class MixinInGameHud {
     /**
      * Features of this injection:<br><br>
-     * 
+     * <p>
      * - Hide <b>Scoreboard Sidebar</b><br>
      */
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
@@ -41,35 +41,35 @@ public abstract class MixinInGameHud {
 
     /**
      * Features of this injection:<br><br>
-     * 
+     * <p>
      * - Hide <b>Health Bar</b><br>
      */
     @Inject(method = "renderHealthBar", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$toggleHealthBarOnRenderHealthBar(CallbackInfo ci) {
         // TODO: add settings support
-        
+
         if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
             ci.cancel();
     }
 
     /**
      * Features of this injection:<br><br>
-     * 
+     * <p>
      * - Hide <b>Status Bars</b><br> (Hunger, Armor, Air)
      */
     @Inject(method = "renderStatusBars", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$toggleStatusBarsOnRenderStatusBars(CallbackInfo ci) {
         // TODO: add settings support
         // TODO: add support for air bar
-        
+
         if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
             ci.cancel();
     }
 
-    
+
     /**
      * Features of this injection:<br><br>
-     * 
+     * <p>
      * - Move <b>Experience Bar</b> a little bit up
      */
     @Inject(method = "renderExperienceBar", at = @At("HEAD"))
@@ -89,28 +89,28 @@ public abstract class MixinInGameHud {
 
     /**
      * Features of this injection:<br><br>
-     * 
+     * <p>
      * - Expired Food Highlight
      */
     @Inject(method = "renderHotbarItem", at = @At("HEAD"))
     protected void tecnogui$renderHotbarItemExpired(DrawContext context, int x, int y, float f, PlayerEntity player, ItemStack stack, int seed, CallbackInfo ci) {
         if (!TecnoData.INSTANCE.isHUDEnabled || !TecnoData.INSTANCE.isInTecnoRoleplay)
             return;
-        
+
         // TODO: add settings support
-        
-        if (stack.isEmpty()) 
+
+        if (stack.isEmpty())
             return;
-        
+
         boolean expired = isExpired(stack);
-        
+
         if (expired)
             context.fillGradient(x, y, x + 16, y + 16, 0x8090EE90, 0x8090EE90);
     }
 
     /**
      * Features of this injection:<br><br>
-     * 
+     * <p>
      * - Move <b>Hotbar</b> a little bit up
      */
     @Inject(method = "renderHotbar", at = @At("HEAD"))
@@ -130,7 +130,7 @@ public abstract class MixinInGameHud {
 
     /**
      * Features of this injection:<br><br>
-     * 
+     * <p>
      * - Hide `Sei entrato nel lotto di` message<br>
      * - Parse hydration bar<br>
      */
@@ -143,8 +143,7 @@ public abstract class MixinInGameHud {
             else if (msg.length() > 15 && "\uE120\uE121\uE122\uE123\uE124\uE125".indexOf(msg.charAt(15)) != -1) {
                 TecnoData.INSTANCE.hydration = parseHydrationBar(msg);
                 ci.cancel();
-            }
-            else {
+            } else {
                 System.out.println(msg);
             }
         }

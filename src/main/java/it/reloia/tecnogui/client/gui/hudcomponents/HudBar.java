@@ -42,11 +42,14 @@ public class HudBar {
      * @param offsetY - Vertical offset from the bottom of the screen.
      * @param color - Primary shader color (RGBA array).
      * @param fillColor - Primary fill color (RGBA array).
-     * @param secondaryFillPercentage - Secondary fill percentage (optional).
-     * @param secondaryFillColor - Secondary fill color (optional).
+     * @param secondFillPercentage - Secondary fill percentage (optional).
+     * @param secondFillColor - Secondary fill color (optional).
+     * @param saturationFillPercentage - Saturation fill percentage (optional).
+     * @param saturationFillColor - Saturation fill color (optional).
      */
     public void renderBar(float fillPercentage, Anchor horizontalAnchor, int offsetY, float[] color, float[] fillColor,
-                          Float secondaryFillPercentage, float[] secondaryFillColor) {
+                          Float secondFillPercentage, float[] secondFillColor,
+                          Float saturationFillPercentage, float[] saturationFillColor) {
         MinecraftClient client = MinecraftClient.getInstance();
         final int BASE_X = (client.getWindow().getScaledWidth() / 2) - width / 2;
 
@@ -69,18 +72,29 @@ public class HudBar {
         drawContext.getMatrices().push();
         drawContext.getMatrices().scale(scaleX, 1F, 1F);
         drawContext.drawTexture(texture, (int) (x * (1 / scaleX)), y, 0, 64, width, 5);
-
-        if (secondaryFillPercentage != null && secondaryFillPercentage > 0.0F)
-            renderBarSegment(x, y, scaleX, Math.min(fillPercentage + secondaryFillPercentage, 1F), secondaryFillColor);
         
+        // Render the secondary fill segment after the primary fill segment.
+        if (secondFillPercentage != null && secondFillPercentage > 0.0F) 
+            renderBarSegment(x, y, scaleX, Math.min(fillPercentage + secondFillPercentage, 1F), secondFillColor);
 
+        // Render the primary fill segment.
         renderBarSegment(x, y, scaleX, fillPercentage, fillColor);
+
+        // Saturation bar will be rendered on top of all other bars.
+        if (saturationFillPercentage != null && saturationFillPercentage > 0.0F) {
+            renderBarSegment(x, y, scaleX, saturationFillPercentage, saturationFillColor);
+        }
 
         drawContext.getMatrices().pop();
         drawContext.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    public void renderBar(float fillPercentage, Anchor horizontalAnchor, int offsetY, float[] color, float[] fillColor,
+                          Float secondaryFillPercentage, float[] secondaryFillColor) {
+        renderBar(fillPercentage, horizontalAnchor, offsetY, color, fillColor, secondaryFillPercentage, secondaryFillColor, null, null);
+    }
+
     public void renderBar(float fillPercentage, Anchor horizontalAnchor, int offsetY, float[] color, float[] fillColor) {
-        renderBar(fillPercentage, horizontalAnchor, offsetY, color, fillColor, null, null);
+        renderBar(fillPercentage, horizontalAnchor, offsetY, color, fillColor, null, null, null, null);
     }
 }

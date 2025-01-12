@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static it.reloia.tecnogui.dataparsing.Utils.isExpired;
 
 /**
- * Features of this mixin:<br>
+ * Features of this mixin:<br><br>
  * 
- * - Expired Food Highlight
+ * - <b>Highlight Expired Items</b>
  */
 @Mixin(HandledScreen.class)
 public class HandledScreenMixin {

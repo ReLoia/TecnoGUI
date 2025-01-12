@@ -16,9 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Features of this mixin:<br><br>
+ * 
+ * - <b>Hide Vote Ads</b>
+ */
 @Mixin(BossBarHud.class)
 public abstract class BossBarHudMixin {
-
     @Final
     @Shadow
     final Map<UUID, ClientBossBar> bossBars = Maps.newLinkedHashMap();
@@ -32,6 +36,4 @@ public abstract class BossBarHudMixin {
             }
         }
     }
-
-
 }

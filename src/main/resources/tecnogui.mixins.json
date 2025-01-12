@@ -6,10 +6,11 @@
   "mixins": [
   ],
   "client": [
+    "BossBarHudMixin",
+    "ChatHudMixin",
     "ChatPacketMixin",
     "InventoryScreenMixin",
-    "MixinInGameHud",
-    "BossBarHudMixin"
+    "MixinInGameHud"
   ],
   "injectors": {
     "defaultRequire": 1

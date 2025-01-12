@@ -6,17 +6,52 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
+
+import static it.reloia.tecnogui.dataparsing.FoodSaturationCalculator.calculateSaturation;
 
 /**
  * Singleton class that holds all the data parsed from the game.
  */
 public class TecnoData {
+    private static final Logger LOGGER = LogManager.getLogger(TecnoData.class);
+    
     public static final TecnoData INSTANCE = new TecnoData();
 
-    public SidebarData sidebarData = null;
+    private static final int ONE_SECOND = 20;
+    private static final int TEN_SECONDS = 200;
+    private static final int HEALTH_SLOT = 3;
+    
+    private int tickCounter = 0;
+    public void tick() {
+        tickCounter++;
+
+        if (tickCounter % ONE_SECOND == 0) {
+            fetchSidebarLines();
+            checkIfInTecnoRoleplay();
+            if (inAServer && isInTecnoRoleplay && sidebarLines.size() >= 14)
+                sidebarData = SidebarData.fromLines(sidebarLines);
+        }
+
+        if (tickCounter % TEN_SECONDS == 0) {
+            if (inAServer && isInTecnoRoleplay) {
+                loadBalance();
+                loadHealthStatus();
+            }
+        }
+
+        if (tickCounter > 1000)
+            tickCounter = 0;
+    }
+
+    private SidebarData sidebarData = null;
+    public SidebarData getSidebarData() {
+        return sidebarData;
+    }
     public float hydration = 0;
 
     private TecnoData() { }
@@ -49,13 +84,14 @@ public class TecnoData {
         if (client.player.currentScreenHandler == null || client.player.currentScreenHandler.slots.size() < 4)
             return;
 
-        ItemStack healthStack = client.player.currentScreenHandler.slots.get(3).getStack();
+        ItemStack healthStack = client.player.currentScreenHandler.slots.get(HEALTH_SLOT).getStack();
 
         if (healthStack.isEmpty())
             healthStatus = "Loading...";
         else if (healthStack.getTooltip(client.player, TooltipContext.BASIC).size() > 1)
             healthStatus = healthStack.getTooltip(client.player, TooltipContext.BASIC).get(1).getString();
-        else System.out.println("Error while parsing health status. + " + healthStack.getTooltip(client.player, TooltipContext.BASIC));
+        else
+            LOGGER.error("Error while parsing health status. + {}", healthStack.getTooltip(client.player, TooltipContext.BASIC));
     }
 
     public boolean inAServer = false;
@@ -69,29 +105,6 @@ public class TecnoData {
             isInTecnoRoleplay = false;
         }
     }
-
-    private int t = 0;
-    public void tick() {
-        t++;
-
-        // 1 sec
-        if (t % 20 == 0) {
-            fetchSidebarLines();
-            checkIfInTecnoRoleplay();
-            if (inAServer && isInTecnoRoleplay && sidebarLines.size() >= 14)
-                sidebarData = SidebarData.fromLines(sidebarLines);
-        }
-
-        if (t % 200 == 0) {
-            if (inAServer && isInTecnoRoleplay) {
-                loadBalance();
-                loadHealthStatus();
-            }
-        }
-
-        if (t > 1000)
-            t = 0;
-    }
     
     public float heldHydration = 0;
     public float heldSaturation = 0;
@@ -104,6 +117,9 @@ public class TecnoData {
     public void loadHeldStatus(int slot) {
         MinecraftClient client = MinecraftClient.getInstance();
 
+        heldHydration = 0;
+        heldSaturation = 0;
+
         if (client == null || client.player == null)
             return;
 
@@ -112,13 +128,8 @@ public class TecnoData {
 
         Item heldItem = client.player.getInventory().getStack(slot).getItem();
 
-        heldHydration = 0;
-        heldSaturation = 0;
-
         if (heldItem.isFood()) {
-            // TODO: make a method that returns the saturation value of the food item - because the server has a different saturation value for each food item
-//            float saturation = heldItem.getFoodComponent().getSaturationModifier();
-//            System.out.println("Saturation: " + saturation);
+            heldSaturation = calculateSaturation(client.player.getInventory().getStack(slot));
         }
         if (heldItem instanceof PotionItem) {
             heldHydration = 4.0F;

@@ -24,8 +24,17 @@ public class CustomBars {
         hudBar.renderBar(health, HudBar.Anchor.CENTER, 0, new float[]{0.35F, 0.2F, 0.2F, 1.0F}, new float[]{1.0F, 0.2F, 0.0F, 1.0F});
 
         float food = MinecraftClient.getInstance().player.getHungerManager().getFoodLevel() / 20.0F;
-        float saturation = TecnoData.INSTANCE.heldSaturation / 20.0F;
-        hudBar.renderBar(food, HudBar.Anchor.LEFT, 7, new float[]{0.3F, 0.15F, 0.2F, 1.0F}, new float[]{0.6F, 0.27F, 0.0F, 1.0F}, saturation, new float[]{0.6F, 0.37F, 0.0F, 1.0F});
+        float heldSaturation = TecnoData.INSTANCE.heldSaturation / 20.0F;
+        float saturation = MinecraftClient.getInstance().player.getHungerManager().getSaturationLevel() / 20.0F;
+        hudBar.renderBar(food,
+                HudBar.Anchor.LEFT,
+                7,
+                new float[]{0.3F, 0.15F, 0.2F, 1.0F},
+                new float[]{0.6F, 0.27F, 0.0F, 1.0F},
+                heldSaturation,
+                new float[]{0.6F, 0.37F, 0.0F, 1.0F},
+                saturation,
+                new float[]{0.6F, 0.5F, 0.0F, 1.0F});
 
         float thirstPercentage = TecnoData.INSTANCE.hydration / 10.0F;
         float heldHydration = TecnoData.INSTANCE.heldHydration / 10.0F;

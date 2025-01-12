@@ -8,7 +8,8 @@
   "contact": {
     "email": "lrenato67ba@gmail.com",
     "homepage": "https://reloia.ddns.net/",
-    "sources": "https://github.com/ReLoia/TecnoGUI"
+    "sources": "https://github.com/ReLoia/TecnoGUI",
+    "issues": "https://github.com/ReLoia/TecnoGUI/issues"
   },
   "license": "All-Rights-Reserved",
   "icon": "assets/tecnogui/icon.png",

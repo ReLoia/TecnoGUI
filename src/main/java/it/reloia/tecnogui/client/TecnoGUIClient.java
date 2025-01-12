@@ -4,6 +4,7 @@ import it.reloia.tecnogui.client.commands.ToggleHUDCommand;
 import it.reloia.tecnogui.client.gui.HUDOverlay;
 import it.reloia.tecnogui.client.keybindings.GUIKeyBinding;
 import it.reloia.tecnogui.client.keybindings.SettingsKeyBinding;
+import it.reloia.tecnogui.config.Config;
 import it.reloia.tecnogui.dataparsing.TecnoData;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -12,6 +13,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
 public class TecnoGUIClient implements ClientModInitializer {
+    public static final Config CONFIG = Config.load();
     private int previousSelectedSlot = -1;
 
     @Override

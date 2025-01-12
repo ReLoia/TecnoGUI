@@ -1,6 +1,7 @@
 package it.reloia.tecnogui.mixin;
 
 import com.google.common.collect.Maps;
+import it.reloia.tecnogui.client.TecnoGUIClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;
@@ -20,14 +21,13 @@ public abstract class BossBarHudMixin {
 
     @Final
     @Shadow
-    final Map<UUID, ClientBossBar> bossBars = Maps.<UUID, ClientBossBar>newLinkedHashMap();
+    final Map<UUID, ClientBossBar> bossBars = Maps.newLinkedHashMap();
 
     @Inject(method = "render", at = @At("HEAD"))
     private void tecnogui$getBossBarNameOnRender(DrawContext context, CallbackInfo ci) {
         for (ClientBossBar clientBossBar : this.bossBars.values()) {
             String content = clientBossBar.getName().getString();
-            if (content.equals("\uD875\uDEC2")) {
-                // TODO: add a config toggle to show/hide the boss bar name
+            if (content.equals("\uD875\uDEC2") && TecnoGUIClient.CONFIG.isHideVoteAds()) {
                 clientBossBar.setName(Text.of(""));
             }
         }

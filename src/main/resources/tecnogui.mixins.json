@@ -9,6 +9,7 @@
     "BossBarHudMixin",
     "ChatHudMixin",
     "ChatPacketMixin",
+    "HandledScreenMixin",
     "InventoryScreenMixin",
     "MixinInGameHud"
   ],

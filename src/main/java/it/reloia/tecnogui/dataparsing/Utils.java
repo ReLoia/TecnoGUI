@@ -2,6 +2,9 @@ package it.reloia.tecnogui.dataparsing;
 
 import com.google.common.collect.Iterables;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ScoreboardPlayerScore;
@@ -13,6 +16,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static it.reloia.tecnogui.dataparsing.food.ExpiryDateChecker.isDateExpired;
 
 public class Utils {
     /**
@@ -109,5 +114,24 @@ public class Utils {
         }
 
         return addBalanceCommas(cleanedInput);
+    }
+    
+    public static Boolean isExpired(ItemStack stack) {
+        if (stack.getNbt() == null || !stack.hasNbt()) return false;
+        
+        NbtCompound tag = stack.getNbt();
+        if (tag.contains("tecnogui_expired")) {
+            return tag.getBoolean("tecnogui_expired");
+        }
+
+        List<Text> lore = stack.getTooltip(null, TooltipContext.BASIC);
+        if (lore.isEmpty()) return false;
+        
+        String lastLine = lore.get(lore.size() - 1).getString();
+        
+        boolean expired = isDateExpired(lastLine.trim().substring(lastLine.trim().lastIndexOf(' ') + 1));
+        tag.putBoolean("tecnogui_expired", expired);
+
+        return expired;
     }
 }

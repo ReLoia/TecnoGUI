@@ -3,11 +3,15 @@ A QOL mod for [Tecnocraft Roleplay](https://www.tecnocraft.net/).
 
 ## Features
 
- - **HUD** - A InHameHUD that displays general information about the player. Really similar to [Apec's one](https://github.com/BananaFructa/Apec) (sry).
- - **Hidden Scoreboard** - Removed the Scoreboard and moved it to the HUD.
- - **No "Sei entrato nel plot di" message** - Removed the annoying message that appears when you enter a plot.
- - **Removed Vote Popup** - Removed the annoying vote popup that appears.
-- **Inventory Buttons** - Add buttons to the inventory that allows the player to execute commands. | like NEU's ones.  
+ - **HUD** - An InGameHUD that displays general information about the player. Really similar to [Apec's one](https://github.com/BananaFructa/Apec) (sry).  
+\ -> **Custom Bars** - for health, food and hydration  
+|-> **Predicted Bar Change** - hold an item in your hand to see how much Hunger or Hydration you will receive from it  
+\ -> **Saturation Bar** - a bar over the Food bar that shows your saturation (the amount of Hunger you need to consume before having to eat again)
+ - **Hide Scoreboard Sidebar** - Removed the Scoreboard and moved it to the HUD.
+ - **No "Sei entrato nel lotto di" message** - Removed the annoying message that appears when you enter a plot.
+ - **Hide Vote Ads** - Ability to hide the vote ads.
+ - **Highlight Expired Items** - Ability to hide Expired Food and ingredients in the inventory and hotbar 
+ - **Inventory Buttons** - Add buttons to the inventory that allows the player to execute commands. | like NEU's ones.  
 \ -> **garage button** - Opens the garage menu. 
 
 ### Future Features

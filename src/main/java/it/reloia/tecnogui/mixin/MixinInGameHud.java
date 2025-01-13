@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.awt.*;
+
 import static it.reloia.tecnogui.dataparsing.Utils.isExpired;
 import static it.reloia.tecnogui.dataparsing.Utils.parseHydrationBar;
 
@@ -105,9 +107,11 @@ public abstract class MixinInGameHud {
             return;
 
         boolean expired = isExpired(stack);
+        Color color = TecnoGUIClient.CONFIG.getHighlightExpiredFoodColor();
+        int rgb = color.getRGB();
 
         if (expired)
-            context.fillGradient(x, y, x + 16, y + 16, 0x8090EE90, 0x8090EE90);
+            context.fillGradient(x, y, x + 16, y + 16, rgb, rgb);
     }
 
     /**

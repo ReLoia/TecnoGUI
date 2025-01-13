@@ -29,6 +29,7 @@ public class Utils {
         if (MinecraftClient.getInstance().world == null) return lines;
         Scoreboard scoreboard = MinecraftClient.getInstance().world.getScoreboard();
         if (scoreboard == null) {
+            // TODO: create an error log class that sends messages in case of errors
             System.out.println("Scoreboard is null");
             return lines;
         }

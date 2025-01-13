@@ -20,7 +20,7 @@ public class CustomBars {
 
         HudBar hudBar = new HudBar(drawContext, texture);
 
-        float health = Math.round(MinecraftClient.getInstance().player.getHealth() + .7) / 20.0F;
+        float health = (float) Math.floor(MinecraftClient.getInstance().player.getHealth() + .7) / 20.0F;
         hudBar.renderBar(health, HudBar.Anchor.CENTER, 0, new float[]{0.35F, 0.2F, 0.2F, 1.0F}, new float[]{1.0F, 0.2F, 0.0F, 1.0F});
 
         float food = MinecraftClient.getInstance().player.getHungerManager().getFoodLevel() / 20.0F;

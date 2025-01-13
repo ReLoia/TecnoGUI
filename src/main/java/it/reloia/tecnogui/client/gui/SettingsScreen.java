@@ -91,11 +91,15 @@ public class SettingsScreen {
                 .name(Text.literal("Highlight Expired Food Color"))
                 .description(OptionDescription.of(Text.literal("The color of the overlay that highlights expired food and ingredients.")))
                 .binding(
-                        Color.GREEN,
+                        new Color(0x8090EE90),
                         TecnoGUIClient.CONFIG::getHighlightExpiredFoodColor,
                         TecnoGUIClient.CONFIG::setHighlightExpiredFoodColor
                 )
-                .controller(ColorControllerBuilder::create)
+                .controller(option -> {
+                    ColorControllerBuilder builder = ColorControllerBuilder.create(option);
+                    builder.allowAlpha(true);
+                    return builder;
+                })
                 .build();
     }
 }

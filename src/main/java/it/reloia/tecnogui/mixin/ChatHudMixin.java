@@ -6,6 +6,7 @@ import net.minecraft.client.gui.hud.ChatHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
@@ -28,5 +29,13 @@ public class ChatHudMixin {
         if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
             context.getMatrices().pop();
         }
+    }
+    
+    @ModifyVariable(method = "toChatLineY", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    protected double tecnogui$chatLineYMoved(double y) {
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
+            y += 8.0D;
+        }
+        return y;
     }
 }

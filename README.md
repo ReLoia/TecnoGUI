@@ -16,7 +16,6 @@ A QOL mod for [Tecnocraft Roleplay](https://www.tecnocraft.net/).
 
 ### Future Features
 
- - **Health and Food HUD** - Add a HUD that displays the player's health and food.
  - **Move Chat to the HUD** - Move the chat to the HUD. (maybe on player's head?)
  - **Customizable HUD** - Allow the player to customize the HUD.
    

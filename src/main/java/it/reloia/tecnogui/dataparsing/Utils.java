@@ -129,6 +129,11 @@ public class Utils {
         
         String lastLine = lore.get(lore.size() - 1).getString();
         
+        if (!lastLine.contains("Da consumare entro il")) {
+            tag.putBoolean("tecnogui_expired", false);
+            return false;
+        }
+        
         boolean expired = isDateExpired(lastLine.trim().substring(lastLine.trim().lastIndexOf(' ') + 1));
         tag.putBoolean("tecnogui_expired", expired);
 

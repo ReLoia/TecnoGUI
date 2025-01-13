@@ -2,29 +2,64 @@ package it.reloia.tecnogui.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dev.isxander.yacl3.config.v2.impl.serializer.GsonConfigSerializer;
+import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Config {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Color.class, new GsonConfigSerializer.ColorTypeAdapter())
+            .create();
     private static final File CONFIG_FILE = new File("config/tecnogui.json");
     
-    private boolean hideBossBarName = false;
+    private boolean shouldHideVoteAds = false;
     public boolean isHideVoteAds() {
-        return hideBossBarName;
+        return shouldHideVoteAds;
     }
     public void setHideVoteAds(boolean hideBossBarName) {
-        this.hideBossBarName = hideBossBarName;
+        this.shouldHideVoteAds = hideBossBarName;
+    }
+
+    private boolean shouldHideEnteredPlotMsg = false;
+    public boolean isHideEnteredPlotMsg() {
+        return shouldHideEnteredPlotMsg;
+    }
+    public void setHideEnteredPlotMsg(boolean hideEnteredPlotMsg) {
+        this.shouldHideEnteredPlotMsg = hideEnteredPlotMsg;
+    }
+
+    private boolean shouldHighlightExpiredFood = true;
+    public boolean isHighlightExpiredFood() {
+        return shouldHighlightExpiredFood;
+    }
+    public void setHighlightExpiredFood(boolean highlightExpiredFood) {
+        this.shouldHighlightExpiredFood = highlightExpiredFood;
+    }
+
+    private boolean shouldHideScoreboard = true;
+    public boolean isHideScoreboard() {
+        return shouldHideScoreboard;
+    }
+    public void setHideScoreboard(boolean hideScoreboard) {
+        this.shouldHideScoreboard = hideScoreboard;
     }
     
+    private Color highlightExpiredFoodColor = new Color(0x8090EE90);
+    public Color getHighlightExpiredFoodColor() {
+        return highlightExpiredFoodColor;
+    }
+    public void setHighlightExpiredFoodColor(@NotNull Color color) {
+        this.highlightExpiredFoodColor = color;
+    }
+
     // TODO: add toggle for custom bars, 
     //  saturation in custom bars, 
-    //  hidden scoreboard, 
-    //  entered plot hider, 
     //  inventory buttons,
-    //  expired food highlight
 
     public void save() {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {

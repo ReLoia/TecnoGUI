@@ -1,5 +1,6 @@
 package it.reloia.tecnogui.mixin;
 
+import it.reloia.tecnogui.client.TecnoGUIClient;
 import it.reloia.tecnogui.dataparsing.TecnoData;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -10,6 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.awt.*;
 
 import static it.reloia.tecnogui.dataparsing.Utils.isExpired;
 
@@ -25,7 +28,8 @@ public class HandledScreenMixin {
         if (!TecnoData.INSTANCE.isHUDEnabled || !TecnoData.INSTANCE.isInTecnoRoleplay)
             return;
         
-        // TODO: add settings support
+        if (!TecnoGUIClient.CONFIG.isHighlightExpiredFood())
+            return;
         
         ItemStack stack = slot.getStack();
         
@@ -39,7 +43,10 @@ public class HandledScreenMixin {
             int y = slot.y;
             int z = 0;
             
-            context.fillGradient(RenderLayer.getGuiOverlay(), x, y, x + 16, y + 16, 0x8090EE90, 0x8090EE90, z);
+            Color color = TecnoGUIClient.CONFIG.getHighlightExpiredFoodColor();
+            int rgb = color.getRGB();
+            
+            context.fillGradient(RenderLayer.getGuiOverlay(), x, y, x + 16, y + 16, rgb, rgb, z);
         }
     }
 }

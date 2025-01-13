@@ -13,13 +13,12 @@ public class FoodSaturationCalculator {
     
     private static final float LOVED_FOOD_SATURATION = 8F;
     private static final float LOVED_CATEGORY_SATURATION = 6F;
-    private static final float INGREDIENT_SATURATION = 1F;
     private static final float DEFAULT_FOOD_SATURATION = 4F;
+    private static final float INGREDIENT_SATURATION = 2F;
     
     /**
      * Calculate the saturation value based on the lore of the held item.
      *
-     * @param itemStack the item in slot 4
      * @return the calculated saturation value
      */
     public static float calculateSaturation(ItemStack itemStack) {

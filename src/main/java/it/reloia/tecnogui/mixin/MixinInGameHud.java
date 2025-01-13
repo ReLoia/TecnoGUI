@@ -1,5 +1,6 @@
 package it.reloia.tecnogui.mixin;
 
+import it.reloia.tecnogui.client.TecnoGUIClient;
 import it.reloia.tecnogui.dataparsing.TecnoData;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -35,14 +36,14 @@ public abstract class MixinInGameHud {
      */
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$toggleScoreboardOnRenderScoreboardSidebar(CallbackInfo ci) {
-        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay && TecnoGUIClient.CONFIG.isHideScoreboard())
             ci.cancel();
     }
 
     /**
      * Features of this injection:<br><br>
      * <p>
-     * - Hide <b>Health Bar</b><br>
+     * - Hide <b>Health Bar</b>
      */
     @Inject(method = "renderHealthBar", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$toggleHealthBarOnRenderHealthBar(CallbackInfo ci) {
@@ -97,7 +98,8 @@ public abstract class MixinInGameHud {
         if (!TecnoData.INSTANCE.isHUDEnabled || !TecnoData.INSTANCE.isInTecnoRoleplay)
             return;
 
-        // TODO: add settings support
+        if (!TecnoGUIClient.CONFIG.isHighlightExpiredFood())
+            return;
 
         if (stack.isEmpty())
             return;
@@ -138,9 +140,10 @@ public abstract class MixinInGameHud {
     protected void tecnogui$cancelSetOverlayMessage(Text message, boolean tinted, CallbackInfo ci) {
         if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
             String msg = message.getString();
-            if (msg.contains("Sei entrato nel lotto di"))
+            if (msg.contains("Sei entrato nel lotto di") && TecnoGUIClient.CONFIG.isHideEnteredPlotMsg())
                 ci.cancel();
             else if (msg.length() > 15 && "\uE120\uE121\uE122\uE123\uE124\uE125".indexOf(msg.charAt(15)) != -1) {
+                // TODO: add settings support
                 TecnoData.INSTANCE.hydration = parseHydrationBar(msg);
                 ci.cancel();
             } else {

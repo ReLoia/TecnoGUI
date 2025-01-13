@@ -21,8 +21,8 @@ public class ImageButton extends ButtonWidget {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.renderWidget(context, mouseX, mouseY, delta);
 
         RenderSystem.setShaderTexture(0, imageTexture);
 

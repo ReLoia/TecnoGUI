@@ -43,7 +43,8 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
                 (button) -> {
                     if (MinecraftClient.getInstance().getNetworkHandler() != null)
                         MinecraftClient.getInstance().getNetworkHandler().sendCommand("garage");
-                }
+                },
+                "Garage"
         );
 
         this.addDrawableChild(customButton);

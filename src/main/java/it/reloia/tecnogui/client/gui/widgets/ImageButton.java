@@ -2,6 +2,7 @@ package it.reloia.tecnogui.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -13,9 +14,10 @@ public class ImageButton extends ButtonWidget {
 //    private final int textureHeight;
 
 
-    public ImageButton(int x, int y, int width, int height, Identifier imageTexture, PressAction onPress) {
+    public ImageButton(int x, int y, int width, int height, Identifier imageTexture, PressAction onPress, String tooltip) {
         super(x, y, width, height, Text.literal(""), onPress, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
         this.imageTexture = imageTexture;
+        this.setTooltip(Tooltip.of(Text.of(tooltip)));
 //        this.textureWidth = textureWidth;
 //        this.textureHeight = textureHeight;
     }

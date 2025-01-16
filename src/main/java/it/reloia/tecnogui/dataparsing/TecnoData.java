@@ -10,7 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static it.reloia.tecnogui.dataparsing.food.FoodSaturationCalculator.calculateSaturation;
 
@@ -19,33 +21,56 @@ import static it.reloia.tecnogui.dataparsing.food.FoodSaturationCalculator.calcu
  */
 public class TecnoData {
     private static final Logger LOGGER = LogManager.getLogger(TecnoData.class);
-    
+
     public static final TecnoData INSTANCE = new TecnoData();
 
-    private static final int ONE_SECOND = 20;
-    private static final int TEN_SECONDS = 200;
+    public static final int ONE_SECOND = 20;
+    public static final int TWO_SECONDS = 40;
+    public static final int TEN_SECONDS = 200;
     private static final int HEALTH_SLOT = 3;
-    
-    private int tickCounter = 0;
-    public void tick() {
-        tickCounter++;
+    private static final int TICK_THRESHOLD = 1000;
 
-        if (tickCounter % ONE_SECOND == 0) {
+    public float lastHealth = 0;
+
+    private final Map<String, Integer> tickCounter = new HashMap<>();
+
+    private TecnoData() {
+        tickCounter.put("main", TICK_THRESHOLD);
+    }
+
+    public void tickAll() {
+        tickCounter.forEach((key, value) -> tickCounter.put(key, Math.max(value - 1, 0)));
+    }
+
+    public Integer getTick(String id) {
+        return tickCounter.get(id);
+    }
+
+    public void setTick(String id, int value) {
+        tickCounter.put(id, value);
+    }
+
+    public void tick() {
+        Integer mainTick = tickCounter.get("main");
+
+        if ((mainTick - TICK_THRESHOLD) % ONE_SECOND == 0) {
             fetchSidebarLines();
             checkIfInTecnoRoleplay();
             if (inAServer && isInTecnoRoleplay && sidebarLines.size() >= 14)
                 sidebarData = SidebarData.fromLines(sidebarLines);
         }
 
-        if (tickCounter % TEN_SECONDS == 0) {
+        if ((mainTick - TICK_THRESHOLD) % TEN_SECONDS == 0) {
             if (inAServer && isInTecnoRoleplay) {
                 loadBalance();
                 loadHealthStatus();
             }
         }
 
-        if (tickCounter > 1000)
-            tickCounter = 0;
+        if (mainTick == 0)
+            tickCounter.put("main", TICK_THRESHOLD);
+
+        tickAll();
     }
 
     private SidebarData sidebarData = null;
@@ -53,8 +78,6 @@ public class TecnoData {
         return sidebarData;
     }
     public float hydration = 0;
-
-    private TecnoData() { }
 
     private List<String> sidebarLines = Collections.emptyList();
 
@@ -105,7 +128,7 @@ public class TecnoData {
             isInTecnoRoleplay = false;
         }
     }
-    
+
     public float heldHydration = 0;
     public float heldSaturation = 0;
 
@@ -133,6 +156,6 @@ public class TecnoData {
         }
         if (heldItem instanceof PotionItem) {
             heldHydration = 4.0F;
-        }       
+        }
     }
 }

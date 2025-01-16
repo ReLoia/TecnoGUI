@@ -25,6 +25,16 @@ Do you have an idea for a feature? Feel free to [open an issue](https://github.c
 ### Future Features
 Open [the Project](https://github.com/users/ReLoia/projects/6) to see what's planned for the future.
 
+## Installation
+
+Install the mod from Modrinth then FabricAPI and YACL as dependency.  
+For a better experience ModMenu is suggested because it shows when the mod need to be updated and other useful info.
+
+### Usage
+The GUI is enabled by default when you enter TecnoCraft and can be toggled by default using `RIGHT-CTRL`.  
+The Settings can be opened by default using `RIGHT-ALT`.
+
+
 ## Screenshots
 ![2025-01-12_19 30 01](https://github.com/user-attachments/assets/79217475-50be-47a4-a386-126ffb4683c0)
 

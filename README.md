@@ -5,16 +5,16 @@ A QOL mod for [Tecnocraft Roleplay](https://www.tecnocraft.net/).
 
 ## Features
 
- - **HUD** - An InGameHUD that displays general information about the player. Really similar to [Apec's one](https://github.com/BananaFructa/Apec) (sry).  
-\ -> **Custom Bars** - for health, food and hydration  
-|-> **Predicted Bar Change** - hold an item in your hand to see how much Hunger or Hydration you will receive from it  
-\ -> **Saturation Bar** - a bar over the Food bar that shows your saturation (the amount of Hunger you need to consume before having to eat again)
- - **Hide Scoreboard Sidebar** - Removed the Scoreboard and moved it to the HUD.
- - **No "Sei entrato nel lotto di" message** - Removed the annoying message that appears when you enter a plot.
- - **Hide Vote Ads** - Ability to hide the vote ads.
- - **Highlight Expired Items** - Ability to hide Expired Food and ingredients in the inventory and hotbar 
- - **Inventory Buttons** - Add buttons to the inventory that allows the player to execute commands. | like NEU's ones.  
-\ -> **garage button** - Opens the garage menu. 
+- **HUD** - An InGameHUD that displays general information about the player. Really similar to [Apec's one](https://github.com/BananaFructa/Apec) (sry).  
+  \ -> **Custom Bars** - for health, food and hydration  
+  |-> **Predicted Bar Change** - hold an item in your hand to see how much Hunger or Hydration you will receive from it  
+  \ -> **Saturation Bar** - a bar over the Food bar that shows your saturation (the amount of Hunger you need to consume before having to eat again)
+- **Hide Scoreboard Sidebar** - Removed the Scoreboard and moved it to the HUD.
+- **No "Sei entrato nel lotto di" message** - Removed the annoying message that appears when you enter a plot.
+- **Hide Vote Ads** - Ability to hide the vote ads.
+- **Highlight Expired Items** - Ability to hide Expired Food and ingredients in the inventory and hotbar
+- **Inventory Buttons** - Add buttons to the inventory that allows the player to execute commands. | like NEU's ones.  
+  \ -> **garage button** - Opens the garage menu.
 
 ## Contributing
 Do you have an idea for a feature? Feel free to [open an issue](https://github.com/ReLoia/TecnoGUI/issues) or a [pull request](https://github.com/ReLoia/TecnoGUI/pulls)!
@@ -22,10 +22,20 @@ Do you have an idea for a feature? Feel free to [open an issue](https://github.c
 ### Future Features
 Open [the Project](https://github.com/users/ReLoia/projects/6) to see what's planned for the future.
 
+## Installation
+
+Install the mod from Modrinth then FabricAPI and YACL as dependency.  
+For a better experience ModMenu is suggested because it shows when the mod need to be updated and other useful info.
+
+### Usage
+The GUI is enabled by default when you enter TecnoCraft and can be toggled by default using `RIGHT-CTRL`.  
+The Settings can be opened by default using `RIGHT-ALT`.
+
+
 ## Screenshots
 ![2025-01-12_19 30 01](https://github.com/user-attachments/assets/79217475-50be-47a4-a386-126ffb4683c0)
 
 
 ## Special Thanks
- - [BananaFructa's Apec](https://github.com/BananaFructa/Apec) - For the inspiration to make this mod.
- - [aaron1998ish](https://github.com/aaron1998ish) - For the `getSidebarLines` method in 1.20.1.
+- [BananaFructa's Apec](https://github.com/BananaFructa/Apec) - For the inspiration to make this mod.
+- [aaron1998ish](https://github.com/aaron1998ish) - For the `getSidebarLines` method in 1.20.1.

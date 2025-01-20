@@ -56,9 +56,16 @@ public class Config {
     public void setHighlightExpiredFoodColor(@NotNull Color color) {
         this.highlightExpiredFoodColor = color;
     }
+    
+    private boolean debug = false;
+    public boolean isDebug() {
+        return debug;
+    }
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
 
     // TODO: add toggle for custom bars, 
-    //  saturation in custom bars, 
     //  inventory buttons,
 
     public void save() {

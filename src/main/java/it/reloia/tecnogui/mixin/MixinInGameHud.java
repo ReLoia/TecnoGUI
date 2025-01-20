@@ -157,7 +157,8 @@ public abstract class MixinInGameHud {
                 TecnoData.INSTANCE.hydration = parseHydrationBar(msg);
                 ci.cancel();
             } else {
-                System.out.println(msg);
+                if (TecnoGUIClient.CONFIG.isDebug())
+                    System.out.println(msg);
             }
         }
     }

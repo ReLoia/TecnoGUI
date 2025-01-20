@@ -7,9 +7,9 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
 public class InfoBar {
-    private static final float scale = 0.75F;
+    private static final float scale = 0.88F;
     private static final float scaleRatio = 1 / scale;
-    private static final int height = 14;
+    private static final int height = 16;
     private static final int x = 0;
 
     private static int toScale(int x) {

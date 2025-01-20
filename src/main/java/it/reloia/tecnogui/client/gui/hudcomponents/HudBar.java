@@ -135,10 +135,6 @@ public class HudBar {
             renderBarSegment(x, y, scaleX, saturationFillPercentage, saturationFillColor);
         }
 
-        if (tickID != null) {
-            System.out.println(tickID + " " + TecnoData.INSTANCE.getTick(tickID));
-        }
-
         drawContext.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         drawContext.getMatrices().pop();

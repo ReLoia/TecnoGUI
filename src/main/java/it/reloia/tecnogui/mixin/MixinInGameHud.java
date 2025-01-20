@@ -134,6 +134,12 @@ public abstract class MixinInGameHud {
         }
     }
 
+    @Inject(method = "renderMountHealth", at = @At("HEAD"), cancellable = true)
+    protected void tecnogui$cancelRenderMountHealth(DrawContext context, CallbackInfo ci) {
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
+            ci.cancel();
+    }    
+    
     /**
      * Features of this injection:<br><br>
      * <p>

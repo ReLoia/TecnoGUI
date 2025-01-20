@@ -10,7 +10,7 @@ public record SidebarData(
     public static SidebarData fromLines(List<String> lines) {
         return new SidebarData(
                 "ઑ " + lines.get(2).trim(),
-                "\uE0E1 " + lines.get(5).replace("club ", "").trim(),
+                "\uE0E1 " + lines.get(5).trim(),
                 "ᮒ " + lines.get(9).trim()
         );
     }

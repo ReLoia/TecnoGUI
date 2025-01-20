@@ -31,9 +31,23 @@ public class SettingsScreen {
                                 .option(createHideScoreboard())
                                 .build()
                 )
+                .option(createDebugToggle())
                 .build();
     }
-    
+
+    private static Option<Boolean> createDebugToggle() {
+        return Option.<Boolean>createBuilder()
+                .name(Text.literal("Debug Mode"))
+                .description(OptionDescription.of(Text.literal("Enables debug mode.")))
+                .binding(
+                        false,
+                        TecnoGUIClient.CONFIG::isDebug,
+                        TecnoGUIClient.CONFIG::setDebug
+                )
+                .controller(BooleanControllerBuilder::create)
+                .build();
+    }
+
     private static Option<Boolean> createHideVoteAds() {
         return Option.<Boolean>createBuilder()
                 .name(Text.literal("Hide Vote Ads"))

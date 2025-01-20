@@ -8,10 +8,12 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 public class ToggleHUDCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(ClientCommandManager.literal("tecnogui")
-                .executes(context -> {
-                    TecnoData.INSTANCE.isHUDEnabled = !TecnoData.INSTANCE.isHUDEnabled;
-                    return 1;
-                })
+                .then(ClientCommandManager.literal("gui")
+                        .executes(context -> {
+                            TecnoData.INSTANCE.isHUDEnabled = !TecnoData.INSTANCE.isHUDEnabled;
+                            return 1;
+                        })
+                )
         );
     }
 }

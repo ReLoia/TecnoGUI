@@ -1,8 +1,8 @@
 package it.reloia.tecnogui.client;
 
+import it.reloia.tecnogui.client.commands.OpenSettingsCommand;
 import it.reloia.tecnogui.client.commands.ToggleHUDCommand;
 import it.reloia.tecnogui.client.gui.HUDOverlay;
-import it.reloia.tecnogui.client.keybindings.GUIKeyBinding;
 import it.reloia.tecnogui.client.keybindings.SettingsKeyBinding;
 import it.reloia.tecnogui.config.Config;
 import it.reloia.tecnogui.dataparsing.TecnoData;
@@ -43,9 +43,11 @@ public class TecnoGUIClient implements ClientModInitializer {
             }
         });
 
-        GUIKeyBinding.register();
         SettingsKeyBinding.register();
 
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> ToggleHUDCommand.register(dispatcher));
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            ToggleHUDCommand.register(dispatcher);
+            OpenSettingsCommand.register(dispatcher);
+        });
     }
 }

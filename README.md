@@ -34,8 +34,9 @@ For a better experience ModMenu is suggested because it shows when the mod need 
 The GUI is enabled by default when you enter TecnoCraft and can be toggled by default using `RIGHT-CTRL`.  
 The Settings can be opened by default using `RIGHT-ALT`.
 
-
 ## Screenshots
+https://github.com/user-attachments/assets/fb694141-db16-4191-9fae-f5b1a72fae44
+
 ![2025-01-12_19 30 01](https://github.com/user-attachments/assets/79217475-50be-47a4-a386-126ffb4683c0)
 
 

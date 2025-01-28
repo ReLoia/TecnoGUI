@@ -34,6 +34,9 @@ public class FoodSaturationCalculator {
         }
         List<String> loreString = lore.stream().map(Text::getString).toList();
         
+        if (loreString.size() < 2)
+            return 0F;
+        
         if (client.player == null)
             return 0F;
         

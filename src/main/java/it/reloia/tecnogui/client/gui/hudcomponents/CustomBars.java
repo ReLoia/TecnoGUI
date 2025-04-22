@@ -14,6 +14,10 @@ public class CustomBars {
      */
     public static void renderBars(DrawContext drawContext, Identifier texture) {
         assert MinecraftClient.getInstance().player != null;
+
+        // To show EXP level over bars
+        drawContext.getMatrices().push();
+        drawContext.getMatrices().translate(0.0F, 0.0F, -280.0F);
         
         float health = (float) Math.floor(MinecraftClient.getInstance().player.getHealth() + .7) / 20.0F;
         HudBar healthBar = new HudBar(drawContext, texture, new float[]{0.35F, 0.2F, 0.2F, 1.0F});
@@ -53,5 +57,7 @@ public class CustomBars {
             airBar.setFirstFill(airPercentage, new float[]{0.75F, 0.65F, 0.7F, 1.0F});
             airBar.render();
         }
+
+        drawContext.getMatrices().pop();
     }
 }

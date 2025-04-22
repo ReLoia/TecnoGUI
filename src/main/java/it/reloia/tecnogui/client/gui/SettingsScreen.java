@@ -21,15 +21,16 @@ public class SettingsScreen {
     private static ConfigCategory createHudCategory() {
         return ConfigCategory.createBuilder()
                 .name(Text.literal("HUD"))
+                .option(createShouldReplaceBars())
                 .option(createHighlightExpiredFood())
                 .option(createHighlightExpiredFoodColor())
+                .option(createVehicleSpeedAsEXPLevel())
                 .group(
                         OptionGroup.createBuilder()
                                 .name(Text.literal("Hide user interface elements"))
                                 .option(createHideVoteAds())
                                 .option(createHideEnteredPlotMsg())
                                 .option(createHideScoreboard())
-                                .option(createVehicleSpeedAsEXPLevel())
                                 .build()
                 )
                 .option(createDebugToggle())
@@ -126,6 +127,19 @@ public class SettingsScreen {
                         false,
                         TecnoGUIClient.CONFIG::isVehicleSpeedAsEXPLevel,
                         TecnoGUIClient.CONFIG::setVehicleSpeedAsEXPLevel
+                )
+                .controller(BooleanControllerBuilder::create)
+                .build();
+    }
+    
+    private static Option<Boolean> createShouldReplaceBars() {
+        return Option.<Boolean>createBuilder()
+                .name(Text.literal("Replace Bars"))
+                .description(OptionDescription.of(Text.literal("Replace the default health and hunger bars with custom ones.")))
+                .binding(
+                        false,
+                        TecnoGUIClient.CONFIG::isReplaceBars,
+                        TecnoGUIClient.CONFIG::setReplaceBars
                 )
                 .controller(BooleanControllerBuilder::create)
                 .build();

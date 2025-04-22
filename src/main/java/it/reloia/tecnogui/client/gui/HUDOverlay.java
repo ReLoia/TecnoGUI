@@ -25,13 +25,16 @@ public class HUDOverlay implements HudRenderCallback {
         
         InfoBar.draw(drawContext, client);
 
-        CustomBars.renderBars(drawContext, ICONS);
+        if (TecnoGUIClient.CONFIG.isReplaceBars())
+            CustomBars.renderBars(drawContext, ICONS);
         
         if (TecnoGUIClient.CONFIG.isVehicleSpeedAsEXPLevel()) {
             assert client.player != null;
             Entity vehicle = client.player.getVehicle();
             if (vehicle instanceof ArmorStandEntity) {
                 client.player.setExperience(0, 0, TecnoData.INSTANCE.speed);
+            } else {
+                client.player.setExperience(0, 0, 0);
             }
         }
     }

@@ -19,7 +19,7 @@ import static it.reloia.tecnogui.dataparsing.Utils.parseHydrationBar;
 
 /**
  * Features of this mixin:<br><br>
- * <p>
+ * 
  * - Expired Food Highlight<br>
  * - Move Hotbar a little bit up<br>
  * - Hide Scoreboard Sidebar<br>
@@ -33,7 +33,7 @@ import static it.reloia.tecnogui.dataparsing.Utils.parseHydrationBar;
 public abstract class MixinInGameHud {
     /**
      * Features of this injection:<br><br>
-     * <p>
+     * 
      * - Hide <b>Scoreboard Sidebar</b><br>
      */
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
@@ -44,35 +44,36 @@ public abstract class MixinInGameHud {
 
     /**
      * Features of this injection:<br><br>
-     * <p>
-     * - Hide <b>Health Bar</b>
-     */
-    @Inject(method = "renderHealthBar", at = @At("HEAD"), cancellable = true)
-    protected void tecnogui$toggleHealthBarOnRenderHealthBar(CallbackInfo ci) {
-        // TODO: add settings support
-
-        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
-            ci.cancel();
-    }
-
-    /**
-     * Features of this injection:<br><br>
-     * <p>
+     * 
      * - Hide <b>Status Bars</b><br> (Hunger, Armor, Air)
+     *  - If `isReplaceBars()` is enabled, it will cancel the rendering of the status bars<br>
+     *    else it will move the status bars a little bit up
      */
     @Inject(method = "renderStatusBars", at = @At("HEAD"), cancellable = true)
-    protected void tecnogui$toggleStatusBarsOnRenderStatusBars(CallbackInfo ci) {
-        // TODO: add settings support
+    protected void tecnogui$toggleStatusBarsOnRenderStatusBars(DrawContext context, CallbackInfo ci) {
         // TODO: add support for air bar
 
-        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay)
-            ci.cancel();
+        if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
+            if (TecnoGUIClient.CONFIG.isReplaceBars())
+                ci.cancel();
+            else {
+                context.getMatrices().push();
+                context.getMatrices().translate(0.0F, -3.0F, 0.0F);
+            }
+        }
+    }
+    
+    @Inject(method = "renderStatusBars", at = @At("TAIL"))
+    protected void tecnogui$restoreStatusBarsOnRenderStatusBars(DrawContext context, CallbackInfo ci) {
+        if (!TecnoGUIClient.CONFIG.isReplaceBars() && TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
+            context.getMatrices().pop();
+        }
     }
 
 
     /**
      * Features of this injection:<br><br>
-     * <p>
+     * 
      * - Move <b>Experience Bar</b> a little bit up
      */
     @Inject(method = "renderExperienceBar", at = @At("HEAD"))
@@ -92,7 +93,7 @@ public abstract class MixinInGameHud {
 
     /**
      * Features of this injection:<br><br>
-     * <p>
+     * 
      * - Expired Food Highlight
      */
     @Inject(method = "renderHotbarItem", at = @At("HEAD"))
@@ -117,7 +118,7 @@ public abstract class MixinInGameHud {
 
     /**
      * Features of this injection:<br><br>
-     * <p>
+     * 
      * - Move <b>Hotbar</b> a little bit up
      */
     @Inject(method = "renderHotbar", at = @At("HEAD"))
@@ -143,9 +144,10 @@ public abstract class MixinInGameHud {
     
     /**
      * Features of this injection:<br><br>
-     * <p>
+     * 
      * - Hide `Sei entrato nel lotto di` message<br>
-     * - Parse hydration bar<br>
+     * - Parse <b>Vehicle Speed</b> as Experience Level<br>
+     * - Parse <b>Hydration Bar</b><br>
      */
     @Inject(method = "setOverlayMessage", at = @At("HEAD"), cancellable = true)
     protected void tecnogui$cancelSetOverlayMessage(Text message, boolean tinted, CallbackInfo ci) {
@@ -157,7 +159,7 @@ public abstract class MixinInGameHud {
                 TecnoData.INSTANCE.speed = Integer.parseInt(msg.substring(msg.indexOf(":") + 2).toUpperCase().replace("KM/H", "").trim());
                 ci.cancel();
             }
-            else if (msg.length() > 15 && "\uE120\uE121\uE122\uE123\uE124\uE125".indexOf(msg.charAt(15)) != -1) {
+            else if (TecnoGUIClient.CONFIG.isReplaceBars() && msg.length() > 15 && "\uE120\uE121\uE122\uE123\uE124\uE125".indexOf(msg.charAt(15)) != -1) {
                 // TODO: add settings support
                 TecnoData.INSTANCE.hydration = parseHydrationBar(msg);
                 ci.cancel();

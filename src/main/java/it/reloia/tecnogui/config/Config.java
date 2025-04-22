@@ -65,6 +65,14 @@ public class Config {
         this.vehicleSpeedAsEXPLevel = vehicleSpeedAsEXPLevel;
     }
     
+    private boolean shouldReplaceBars = true;
+    public boolean isReplaceBars() {
+        return shouldReplaceBars;
+    }
+    public void setReplaceBars(boolean replaceBars) {
+        this.shouldReplaceBars = replaceBars;
+    }
+    
     private boolean debug = false;
     public boolean isDebug() {
         return debug;
@@ -73,8 +81,7 @@ public class Config {
         this.debug = debug;
     }
 
-    // TODO: add toggle for custom bars, 
-    //  inventory buttons,
+    // TODO: inventory buttons
 
     public void save() {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {

@@ -29,6 +29,7 @@ public class SettingsScreen {
                                 .option(createHideVoteAds())
                                 .option(createHideEnteredPlotMsg())
                                 .option(createHideScoreboard())
+                                .option(createVehicleSpeedAsEXPLevel())
                                 .build()
                 )
                 .option(createDebugToggle())
@@ -114,6 +115,19 @@ public class SettingsScreen {
                     builder.allowAlpha(true);
                     return builder;
                 })
+                .build();
+    }
+    
+    private static Option<Boolean> createVehicleSpeedAsEXPLevel() {
+        return Option.<Boolean>createBuilder()
+                .name(Text.literal("Vehicle Speed as EXP Level"))
+                .description(OptionDescription.of(Text.literal("Shows the vehicle speed as experience level.")))
+                .binding(
+                        false,
+                        TecnoGUIClient.CONFIG::isVehicleSpeedAsEXPLevel,
+                        TecnoGUIClient.CONFIG::setVehicleSpeedAsEXPLevel
+                )
+                .controller(BooleanControllerBuilder::create)
                 .build();
     }
 }

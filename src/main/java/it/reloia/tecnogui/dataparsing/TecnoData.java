@@ -128,6 +128,8 @@ public class TecnoData {
             isInTecnoRoleplay = false;
         }
     }
+    
+    public int speed = 0;
 
     public float heldHydration = 0;
     public float heldSaturation = 0;

@@ -1,11 +1,14 @@
 package it.reloia.tecnogui.client.gui;
 
+import it.reloia.tecnogui.client.TecnoGUIClient;
 import it.reloia.tecnogui.client.gui.hudcomponents.CustomBars;
 import it.reloia.tecnogui.client.gui.hudcomponents.InfoBar;
 import it.reloia.tecnogui.dataparsing.TecnoData;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.util.Identifier;
 
 public class HUDOverlay implements HudRenderCallback {
@@ -14,14 +17,22 @@ public class HUDOverlay implements HudRenderCallback {
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
-
+        
         if (client == null)
             return;
         if (!TecnoData.INSTANCE.isInTecnoRoleplay || !TecnoData.INSTANCE.isHUDEnabled)
             return;
-
+        
         InfoBar.draw(drawContext, client);
 
         CustomBars.renderBars(drawContext, ICONS);
+        
+        if (TecnoGUIClient.CONFIG.isVehicleSpeedAsEXPLevel()) {
+            assert client.player != null;
+            Entity vehicle = client.player.getVehicle();
+            if (vehicle instanceof ArmorStandEntity) {
+                client.player.setExperience(0, 0, TecnoData.INSTANCE.speed);
+            }
+        }
     }
 }

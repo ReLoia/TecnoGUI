@@ -57,6 +57,14 @@ public class Config {
         this.highlightExpiredFoodColor = color;
     }
     
+    private boolean vehicleSpeedAsEXPLevel = false;
+    public boolean isVehicleSpeedAsEXPLevel() {
+        return vehicleSpeedAsEXPLevel;
+    }
+    public void setVehicleSpeedAsEXPLevel(boolean vehicleSpeedAsEXPLevel) {
+        this.vehicleSpeedAsEXPLevel = vehicleSpeedAsEXPLevel;
+    }
+    
     private boolean debug = false;
     public boolean isDebug() {
         return debug;

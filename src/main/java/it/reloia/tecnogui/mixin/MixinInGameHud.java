@@ -153,6 +153,10 @@ public abstract class MixinInGameHud {
             String msg = message.getString();
             if (msg.contains("Sei entrato nel lotto di") && TecnoGUIClient.CONFIG.isHideEnteredPlotMsg())
                 ci.cancel();
+            else if (msg.contains("Velocità") && TecnoGUIClient.CONFIG.isVehicleSpeedAsEXPLevel()) {
+                TecnoData.INSTANCE.speed = Integer.parseInt(msg.substring(msg.indexOf(":") + 2).toUpperCase().replace("KM/H", "").trim());
+                ci.cancel();
+            }
             else if (msg.length() > 15 && "\uE120\uE121\uE122\uE123\uE124\uE125".indexOf(msg.charAt(15)) != -1) {
                 // TODO: add settings support
                 TecnoData.INSTANCE.hydration = parseHydrationBar(msg);

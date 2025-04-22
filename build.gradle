@@ -38,8 +38,7 @@ dependencies {
     // ModMenu - to appear in the mod menu
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
     
-    // TODO: remove
-    modImplementation "com.ptsmods:devlogin:3.5"
+    modLocalRuntime "com.ptsmods:devlogin:3.5"
 }
 
 processResources {

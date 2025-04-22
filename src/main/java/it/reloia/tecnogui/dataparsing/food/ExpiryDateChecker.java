@@ -13,7 +13,7 @@ public class ExpiryDateChecker {
             return expiryDate.isBefore(today);
         } catch (DateTimeParseException e) {
             System.err.println("Invalid date format: " + dateString);
-            return false; // Treat invalid dates as non-expired
+            return false;
         }
     }
 }

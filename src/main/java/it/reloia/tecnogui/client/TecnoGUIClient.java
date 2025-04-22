@@ -19,8 +19,10 @@ public class TecnoGUIClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         HudRenderCallback.EVENT.register(new HUDOverlay());
-
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> TecnoData.INSTANCE.inAServer = true);
+        
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> 
+                TecnoData.INSTANCE.inAServer = true
+        );
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             TecnoData.INSTANCE.inAServer = false;
@@ -31,6 +33,7 @@ public class TecnoGUIClient implements ClientModInitializer {
             if (TecnoData.INSTANCE.inAServer)
                 TecnoData.INSTANCE.tick();
             
+            // Each tick, check if the player exists and update the selected slot 
             if (client.player != null && client.player.getInventory() != null) {
                 if (previousSelectedSlot != client.player.getInventory().selectedSlot) {
                     int currentSlot = client.player.getInventory().selectedSlot;

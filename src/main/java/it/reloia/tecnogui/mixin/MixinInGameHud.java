@@ -151,7 +151,7 @@ public abstract class MixinInGameHud {
     protected void tecnogui$cancelSetOverlayMessage(Text message, boolean tinted, CallbackInfo ci) {
         if (TecnoData.INSTANCE.isHUDEnabled && TecnoData.INSTANCE.isInTecnoRoleplay) {
             String msg = message.getString();
-            if (msg.contains("Sei entrato nel lotto di") && TecnoGUIClient.CONFIG.isHideEnteredPlotMsg())
+            if (msg.contains("Sei entrato ne") && TecnoGUIClient.CONFIG.isHideEnteredPlotMsg())
                 ci.cancel();
             else if (msg.contains("Velocità") && TecnoGUIClient.CONFIG.isVehicleSpeedAsEXPLevel()) {
                 TecnoData.INSTANCE.speed = Integer.parseInt(msg.substring(msg.indexOf(":") + 2).toUpperCase().replace("KM/H", "").trim());

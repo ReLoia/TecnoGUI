@@ -59,10 +59,10 @@ public class FoodSaturationCalculator {
 
         if (isLovedFood) {
             return LOVED_FOOD_SATURATION;
-        } else if (isLovedCategory) {
-            return LOVED_CATEGORY_SATURATION;
         } else if (loreString.get(1).toLowerCase().contains("ingredient")) {
             return INGREDIENT_SATURATION;
+        } else if (isLovedCategory) {
+            return LOVED_CATEGORY_SATURATION;
         } else {
             return DEFAULT_FOOD_SATURATION;
         }

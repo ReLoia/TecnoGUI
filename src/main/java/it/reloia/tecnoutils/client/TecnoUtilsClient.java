@@ -1,0 +1,63 @@
+package it.reloia.tecnoutils.client;
+
+import it.reloia.tecnoutils.client.commands.InfoCommand;
+import it.reloia.tecnoutils.httpserver.TecnoMapServer;
+import it.reloia.tecnoutils.client.commands.OpenSettingsCommand;
+import it.reloia.tecnoutils.client.commands.ToggleHUDCommand;
+import it.reloia.tecnoutils.client.gui.HUDOverlay;
+import it.reloia.tecnoutils.client.keybindings.SettingsKeyBinding;
+import it.reloia.tecnoutils.config.Config;
+import it.reloia.tecnoutils.dataparsing.TecnoData;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+
+public class TecnoUtilsClient implements ClientModInitializer {
+    TecnoMapServer tecnoMapServer = new TecnoMapServer();
+    
+    public static final Config CONFIG = Config.load();
+    private int previousSelectedSlot = -1;
+
+    @Override
+    public void onInitializeClient() {
+        HudRenderCallback.EVENT.register(new HUDOverlay());
+        
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> 
+                TecnoData.INSTANCE.inAServer = true
+        );
+
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            TecnoData.INSTANCE.inAServer = false;
+            TecnoData.INSTANCE.isInTecnoRoleplay = false;
+        });
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (TecnoData.INSTANCE.inAServer)
+                TecnoData.INSTANCE.tick();
+            
+            // Each tick, check if the player exists and update the selected slot 
+            if (client.player != null && client.player.getInventory() != null) {
+                if (previousSelectedSlot != client.player.getInventory().selectedSlot) {
+                    int currentSlot = client.player.getInventory().selectedSlot;
+                    
+                    if (currentSlot != previousSelectedSlot) {
+                        previousSelectedSlot = currentSlot;
+                        TecnoData.INSTANCE.loadHeldStatus(currentSlot);
+                    }
+                }
+            }
+        });
+
+        SettingsKeyBinding.register();
+
+        tecnoMapServer.start();
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            ToggleHUDCommand.register(dispatcher);
+            OpenSettingsCommand.register(dispatcher);
+            InfoCommand.register(dispatcher);
+        });
+    }
+}

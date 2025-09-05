@@ -1,7 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "tecnogui",
+  "id": "tecnoutils",
   "version": "${version}",
+  
   "name": "TecnoGUI",
   "description": "A QOL mod for TecnoCraft!",
   "authors": ["reloia"],
@@ -11,23 +12,26 @@
     "sources": "https://github.com/ReLoia/TecnoGUI",
     "issues": "https://github.com/ReLoia/TecnoGUI/issues"
   },
+  
   "license": "All-Rights-Reserved",
-  "icon": "assets/tecnogui/icon.png",
+  "icon": "assets/tecnoutils/icon.png",
+  
   "environment": "client",
   "entrypoints": {
     "client": [
-      "it.reloia.tecnogui.client.TecnoGUIClient"
+      "it.reloia.tecnoutils.client.TecnoUtilsClient"
     ],
     "main": [
-      "it.reloia.tecnogui.TecnoGUI"
+      "it.reloia.tecnoutils.TecnoUtils"
     ],
     "modmenu": [
-      "it.reloia.tecnogui.config.ModMenuIntegration"
+      "it.reloia.tecnoutils.config.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "tecnogui.mixins.json"
+    "tecnoutils.mixins.json"
   ],
+  
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",

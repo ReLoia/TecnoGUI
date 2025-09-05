@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "it.reloia.tecnoutils.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "BossBarHudMixin",
+    "ChatHudMixin",
+    "ChatPacketMixin",
+    "HandledScreenMixin",
+    "InventoryScreenMixin",
+    "MixinInGameHud"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
